@@ -7,8 +7,21 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<header>
+		<h1>SubCast</h1>
+	</header>
+	<nav id="main_menu" >
+		<ul>
+			<li>
+				<%= link_to "Inscription", new_user_path %>
+			</li>
+			<li>Connexion</li>
+			<li>Rechercher Transcription</li>
+		</ul>
+	</nav>
 
 <%= yield %>
+<%= debug(params) if Rails.env.development? %>
 
 </body>
 </html>
