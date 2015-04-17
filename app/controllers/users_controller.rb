@@ -12,13 +12,14 @@ class UsersController < ApplicationController
 	end
 
 	def create
-		@user = User.new(params[:user])
+		@user = User.new(user_params)
 		if @user.save
 			redirect_to :action => 'list'
 		else
 			render :action => 'new'
 		end
 	end
+
 
 	def edit
 		@user = User.find(params[:id])
@@ -36,5 +37,10 @@ class UsersController < ApplicationController
 	def delete
 		User.find(params[:id]).destroy
 		redirect_to :action => 'list'
+	end
+
+	#Needed to say which argument have to be specified
+	def user_params
+		params.require(:user).permit(:name, :email, :password, :password_confirmation)
 	end
 end
