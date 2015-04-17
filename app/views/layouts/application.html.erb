@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>SubCast</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-	<header>
-		<h1>SubCast</h1>
-	</header>
-	<nav id="main_menu" >
-		<ul>
-			<li>
-				<%= link_to "Inscription", new_user_path %>
-			</li>
-			<li>Connexion</li>
-			<li>Rechercher Transcription</li>
-		</ul>
-	</nav>
+	<head>
+		<title>SubCast</title>
+		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+		<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+		<%= csrf_meta_tags %>
+	</head>
+	<body>
+		<div id="mainWrapper" class="container">
+			<header class="row">
+				<h1>SubCast</h1>
+			</header>
 
-<%= yield %>
-<%= debug(params) if Rails.env.development? %>
+			<%= render 'navigation' %>
 
-</body>
+			<div id="page-content" class="row">
+				<%= yield %>
+			</div>
+
+			<div class="row">
+				<%= debug(params) if Rails.env.development? %>
+			</div>
+
+		</div>
+	</body>
 </html>
