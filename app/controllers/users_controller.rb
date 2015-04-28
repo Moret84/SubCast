@@ -4,7 +4,12 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		#@user = User.find(params[:id])
+		if params[:id]
+			@user = User.where(name: params[:id]).first
+			if @user.nil?
+				@user = User.find(params[:id])
+			end
+		end
 	end
 
 	def new
@@ -14,7 +19,7 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
-			redirect_to :action => 'list'
+			sign_in @user
 		else
 			render :action => 'new'
 		end
@@ -38,7 +43,7 @@ class UsersController < ApplicationController
 		redirect_to :action => 'list'
 	end
 
-	#Needed to say which argument have to be specified
+	#Need to say which arguments have to be specified
 	def user_params
 		params.require(:user).permit(:name, :email, :password, :password_confirmation)
 	end
