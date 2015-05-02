@@ -11,10 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417142213) do
+ActiveRecord::Schema.define(version: 20150501205017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contents", force: :cascade do |t|
+    t.string   "title"
+    t.string   "description"
+    t.string   "url"
+    t.datetime "release_date"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "status"
+    t.string   "on_server_id"
+  end
+
+  create_table "podcasts", force: :cascade do |t|
+    t.string   "title"
+    t.string   "rss_link"
+    t.datetime "last_check"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name",            limit: 20, null: false

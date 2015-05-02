@@ -4,12 +4,7 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		if params[:id]
-			@user = User.where(name: params[:id]).first
-			if @user.nil?
-				@user = User.find(params[:id])
-			end
-		end
+		@user = User.find(params[:id])
 	end
 
 	def new
