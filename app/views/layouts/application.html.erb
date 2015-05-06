@@ -9,12 +9,13 @@
 	<body>
 		<div id="mainWrapper" class="container">
 			<header class="row">
-				<h1>SubCast</h1>
+				<%= render 'navigation' %>
 			</header>
 
-			<%= render 'navigation' %>
-
 			<div id="page-content" class="row">
+				<h1 id="page-title">
+					<%= @title %>
+				</h1>
 				<% flash.each do |key, value| %>
 					<div class="flash <%= key %>">
 						<%= value %>

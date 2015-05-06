@@ -7,9 +7,8 @@
 			<%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
 		</div>
 		<div class="actions form-group">
-			<%= f.submit "Sign in" %>
+			<%= f.submit "Sign in", class: "btn btn-default" %>
 		</div>
 	<% end %>
 </div>
-
-<p>Pas encore inscrit ? <%= link_to "Sign up", signup_path %></p>
+<p class="center-block">Pas encore inscrit ? <%= link_to "Sign up", signup_path %></p>

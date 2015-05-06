@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 	end
 
 	def new
+		@title = "Inscription"
 		@user = User.new
 	end
 

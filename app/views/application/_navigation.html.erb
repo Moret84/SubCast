@@ -1,9 +1,11 @@
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" >
 	<div class="container">
+		<%= link_to "SubCast", root_path, class: "navbar-brand" %>
 		<div class="collapse navbar-collapse" id="navbar-collapsable">
 			<ul class="nav navbar-nav ">
 				<li>
 					<a href="dummy">Rechercher Transcription</a>
+				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right" align="right">
 				<% if signed_in? %>

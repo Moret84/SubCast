@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 	has_secure_password
+	has_many :podcast
+	has_many :content
 
 	#Validations
 	validates_presence_of :name, :email

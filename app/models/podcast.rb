@@ -1,5 +1,6 @@
 class Podcast < ActiveRecord::Base
 	has_many :content
+	belongs_to :user
 
 	def after_intialize
 		root = parse_rss(self.url)
