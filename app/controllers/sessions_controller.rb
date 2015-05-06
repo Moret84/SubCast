@@ -6,8 +6,9 @@ class SessionsController < ApplicationController
 	def create
 		user = User.authenticate params[:session][:email_or_username], params[:session][:password]
 		if user.nil?
+			@title = "Connexion"
 			# Crée un message d'erreur et rend le formulaire d'identification.
-			flash.now[:error] = "Bad User/Password"
+			flash.now[:danger] = "Bad User/Password"
 			render 'new'
 		else
 			sign_in user

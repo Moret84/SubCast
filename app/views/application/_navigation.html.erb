@@ -9,6 +9,9 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right" align="right">
 				<% if signed_in? %>
+					<p class="navbar-text">
+						Ça va bien <%= link_to current_user.name, "dummy" %> ?
+					</p>
 					<li>
 						<%= link_to "Déconnexion", signout_path %>
 					</li>
