@@ -1,4 +1,23 @@
-<div class="col-md-3">
-	<p>Nom d'utilisateur : <%= @user.name %></p>
-	<p>Adresse e-mail : <%= @user.email %></p>
+<div class="row" id="user-content">
+	<ul role="tablist" class="nav nav-pills nav-stacked col-md-2">
+		<li role="presentation" class="active">
+			<a data-toggle="tab" href="#user-info">Infos</a>
+		</li>
+		<li role="presentation" >
+			<a data-toggle="tab" href="#contents">Contenus</a>
+		</li>
+	</ul>
+
+	<div class="tab-content col-md-10">
+		<div id="user-info" class="tab-pane active">
+			<p>Nom d'utilisateur : <%= @user.name %></p>
+			<% if signed_in? %>
+				<p>Adresse e-mail : <%= @user.email %></p>
+				<%= link_to "Modifier mes infos", edit_user_path(current_user), class: "btn btn-primary"%>
+			<%end %>
+		</div>
+		<div id="contents" class="tab-pane">
+			chibremou
+		</div>
+	</div>
 </div>

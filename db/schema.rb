@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501205017) do
+ActiveRecord::Schema.define(version: 20150507120516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,10 @@ ActiveRecord::Schema.define(version: 20150501205017) do
     t.datetime "updated_at",   null: false
     t.integer  "status"
     t.string   "on_server_id"
+    t.integer  "podcast_id"
   end
+
+  add_index "contents", ["podcast_id"], name: "index_contents_on_podcast_id", using: :btree
 
   create_table "podcasts", force: :cascade do |t|
     t.string   "title"
@@ -43,5 +46,21 @@ ActiveRecord::Schema.define(version: 20150501205017) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
+
+  create_table "users_contents", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "content_id"
+  end
+
+  add_index "users_contents", ["content_id"], name: "index_users_contents_on_content_id", using: :btree
+  add_index "users_contents", ["user_id"], name: "index_users_contents_on_user_id", using: :btree
+
+  create_table "users_podcasts", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "podcast_id"
+  end
+
+  add_index "users_podcasts", ["podcast_id"], name: "index_users_podcasts_on_podcast_id", using: :btree
+  add_index "users_podcasts", ["user_id"], name: "index_users_podcasts_on_user_id", using: :btree
 
 end
