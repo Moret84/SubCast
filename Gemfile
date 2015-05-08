@@ -31,6 +31,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 #To have "friendly URL"
 gem 'friendly_id', '~> 5.1.0'
+gem "resque", "~> 2.0.0.pre.1", github: "resque/resque"
+
 
 # Use Unicorn as the app server
 # gem 'unicorn'
