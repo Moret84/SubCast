@@ -41,6 +41,8 @@ gem "feedvalidator"
 #Periodic checks
 gem 'whenever', :require => false
 
+gem 'daemons'
+
 
 # Use Unicorn as the app server
 # gem 'unicorn'
