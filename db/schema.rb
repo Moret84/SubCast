@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150507120516) do
+ActiveRecord::Schema.define(version: 20150508203355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,30 @@ ActiveRecord::Schema.define(version: 20150507120516) do
 
   add_index "contents", ["podcast_id"], name: "index_contents_on_podcast_id", using: :btree
 
+  create_table "contents_users", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "content_id"
+  end
+
+  add_index "contents_users", ["content_id"], name: "index_contents_users_on_content_id", using: :btree
+  add_index "contents_users", ["user_id"], name: "index_contents_users_on_user_id", using: :btree
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
   create_table "podcasts", force: :cascade do |t|
     t.string   "title"
     t.string   "rss_link"
@@ -37,6 +61,14 @@ ActiveRecord::Schema.define(version: 20150507120516) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "podcasts_users", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "podcast_id"
+  end
+
+  add_index "podcasts_users", ["podcast_id"], name: "index_podcasts_users_on_podcast_id", using: :btree
+  add_index "podcasts_users", ["user_id"], name: "index_podcasts_users_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string "name",            limit: 20, null: false
@@ -46,21 +78,5 @@ ActiveRecord::Schema.define(version: 20150507120516) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
-
-  create_table "users_contents", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "content_id"
-  end
-
-  add_index "users_contents", ["content_id"], name: "index_users_contents_on_content_id", using: :btree
-  add_index "users_contents", ["user_id"], name: "index_users_contents_on_user_id", using: :btree
-
-  create_table "users_podcasts", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "podcast_id"
-  end
-
-  add_index "users_podcasts", ["podcast_id"], name: "index_users_podcasts_on_podcast_id", using: :btree
-  add_index "users_podcasts", ["user_id"], name: "index_users_podcasts_on_user_id", using: :btree
 
 end

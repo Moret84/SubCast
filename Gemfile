@@ -33,10 +33,13 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'friendly_id', '~> 5.1.0'
 
 #Allow to queue background jobs
-gem "resque", "~> 2.0.0.pre.1", github: "resque/resque"
+gem 'delayed_job_active_record'
 
 #Validator for RSS or ATOM feed
 gem "feedvalidator"
+
+#Periodic checks
+gem 'whenever', :require => false
 
 
 # Use Unicorn as the app server

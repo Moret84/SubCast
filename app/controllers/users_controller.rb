@@ -53,6 +53,10 @@ class UsersController < ApplicationController
 		@title = 'Transcrire'
 		flash[:success] = "ajouté avec succès"
 		if open(params[:url]).content_type.starts_with? 'audio'
+			content = Content.create(title: "édito éco", description: "description dummy comme y faut", url: params[:url])
+			current_user.contents << content
+			content.delay.upload
+			content.delay.transcribe
 			flash.now[:success].prepend("Contenu ")
 		elsif W3C::FeedValidator.new.validate_url(params[:url])
 			flash.now[:success].prepend("Poscast ")
