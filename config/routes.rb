@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get '/signin',  :to => 'sessions#new'
   get '/signout', :to => 'sessions#destroy'
   get '/transcribe', :to => 'users#transcribe'
+  post '/transcribe', :to => 'users#do_transcribe'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

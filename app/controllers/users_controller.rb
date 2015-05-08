@@ -1,3 +1,6 @@
+require 'feed_validator'
+require 'open-uri'
+
 class UsersController < ApplicationController
 	before_action :logged_in_user, only: [:edit, :update, :transcribe]
 	before_action :correct_user,   only: [:edit, :update]
@@ -41,6 +44,21 @@ class UsersController < ApplicationController
 	def delete
 		User.find(params[:id]).destroy
 		redirect_to :action => 'list'
+	end
+
+	def transcribe
+	end
+
+	def do_transcribe
+		@title = 'Transcrire'
+		flash[:success] = "ajouté avec succès"
+		if open(params[:url]).content_type.starts_with? 'audio'
+			flash.now[:success].prepend("Contenu ")
+		elsif W3C::FeedValidator.new.validate_url(params[:url])
+			flash.now[:success].prepend("Poscast ")
+		else
+			flash.now[:danger] = "URL Invalide"
+		end
 	end
 
 	private

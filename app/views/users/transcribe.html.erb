@@ -1,0 +1,12 @@
+<div id="transcribe" class="col-md-5 center-block">
+	<%= form_tag transcribe_path do %>
+
+		<div class="field form-group">
+			<%= text_field_tag 'url', nil, class: 'form-control', placeholder: "Entrez l'URL de votre contenu ou podcast" %>
+		</div>
+
+		<div class="actions form-group">
+			<%= submit_tag "Transcrire !", class: "btn btn-default" %>
+		</div>
+	<% end %>
+</div>

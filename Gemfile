@@ -31,7 +31,12 @@ gem 'bcrypt', '~> 3.1.7'
 
 #To have "friendly URL"
 gem 'friendly_id', '~> 5.1.0'
+
+#Allow to queue background jobs
 gem "resque", "~> 2.0.0.pre.1", github: "resque/resque"
+
+#Validator for RSS or ATOM feed
+gem "feedvalidator"
 
 
 # Use Unicorn as the app server
