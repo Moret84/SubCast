@@ -6,6 +6,11 @@
 				<li>
 					<a href="dummy">Rechercher Transcription</a>
 				</li>
+				<% if signed_in? %>
+					<li>
+						<%= link_to "Transcrire", transcribe_path %>
+					</li>
+				<% end %>
 			</ul>
 			<ul class="nav navbar-nav navbar-right" align="right">
 				<% if signed_in? %>
