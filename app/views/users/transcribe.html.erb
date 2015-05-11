@@ -1,12 +1,54 @@
 <div id="transcribe" class="col-md-5 center-block">
-	<%= form_tag transcribe_path do %>
+	<ul role="tablist" class="nav nav-tabs">
+		<li role="presentation" class="active">
+			<a data-toggle="tab" href="#content-form">Contenu</a>
+		</li>
+		<li role="presentation" >
+			<a data-toggle="tab" href="#podcast-form">Podcast</a>
+			</li>
+		</ul>
+		<div class="tab-content text-left">
+			<div id="content-form" class="tab-pane active">
+				<%= form_tag transcribe_path do %>
+					<div class="field form-group">
+						<%= text_field_tag 'title', nil, class: 'form-control', placeholder: "Titre" %>
+					</div>
+					<div class="field form-group">
+						<%= text_field_tag 'description', nil, class: 'form-control', placeholder: "Description" %>
+					</div>
+					<div class="field form-group text-center">
+						<%= text_field_tag 'url', nil, class: 'form-control', placeholder: "Entrez l'URL de votre contenu" %>
+					</div>
 
-		<div class="field form-group">
-			<%= text_field_tag 'url', nil, class: 'form-control', placeholder: "Entrez l'URL de votre contenu ou podcast" %>
-		</div>
+					<div class="field form-groupa collapse" id="file_upload_div">
+						<%= label_tag 'file_upload', 'Choisir contenu' %>
+						<%= file_field_tag 'file_upload' %>
+					</div>
 
-		<div class="actions form-group">
-			<%= submit_tag "Transcrire !", class: "btn btn-default" %>
+					<div class="text-center" id="toggle_url">
+						<a data-toggle="collapse" href="#file_upload_div">Fichier local ? Cliquez ici !</a>
+					</div>
+
+					<div class="field form-group">
+						<%= label_tag 'context_file', 'Fichier de contexte (facultatif)' %>
+						<%= file_field_tag 'context_file' %>
+					</div>
+
+					<div class="actions form-group text-center">
+						<%= submit_tag "Transcrire !", class: "btn btn-default" %>
+					</div>
+				<% end %>
+			</div>
+			<div id="podcast-form" class="tab-pane">
+				<%= form_tag transcribe_path do %>
+					<div class="field form-group">
+						<%= text_field_tag 'url', nil, class: 'form-control', placeholder: "Entrez l'URL de votre podcast" %>
+					</div>
+
+					<div class="actions form-group text-center">
+						<%= submit_tag "Transcrire !", class: "btn btn-default" %>
+					</div>
+				<% end %>
+			</div>
 		</div>
-	<% end %>
-</div>
+	</div>

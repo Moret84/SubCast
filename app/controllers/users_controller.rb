@@ -1,6 +1,3 @@
-require 'feed_validator'
-require 'open-uri'
-
 class UsersController < ApplicationController
 	before_action :logged_in_user, only: [:edit, :update, :transcribe]
 	before_action :correct_user,   only: [:edit, :update]
@@ -47,21 +44,32 @@ class UsersController < ApplicationController
 	end
 
 	def transcribe
+		@title = 'Transcrire'
 	end
 
 	def do_transcribe
 		@title = 'Transcrire'
 		flash[:success] = "ajouté avec succès"
-		if open(params[:url]).content_type.starts_with? 'audio'
-			content = Content.create(title: "édito éco", description: "description dummy comme y faut", url: params[:url])
-			current_user.contents << content
-			content.delay.upload
-			content.delay.transcribe
-			flash.now[:success].prepend("Contenu ")
-		elsif W3C::FeedValidator.new.validate_url(params[:url])
-			flash.now[:success].prepend("Poscast ")
-		else
-			flash.now[:danger] = "URL Invalide"
+		if !params[:file_upload].blank?
+			#on uploade le bordel et on le stocke
+		end
+
+		if !params[:url].blank?
+			if Content.isContent?(params[:url])
+				content = Content.create(title: params[:title], description: params[:description], url: params[:url])
+				current_user.contents << content
+				content.delay.upload
+				content.delay.transcribe
+				flash.now[:success].prepend("Contenu ")
+			elsif Podcast.isPodcast?(params[:url])
+				podcast = Podcast.create(rss_link: params[:url])
+				current_user.podcasts << podcast
+				podcast.delay.parse
+				podcast.delay.transcribe_all
+				flash.now[:success].prepend("Podcast ")
+			else
+				flash.now[:danger] = "URL invalide"
+			end
 		end
 	end
 
@@ -85,4 +93,5 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
 		redirect_to(root_url) unless current_user?(@user)
 	end
+
 end

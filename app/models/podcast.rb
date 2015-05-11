@@ -1,23 +1,52 @@
+require 'feed_validator'
+require 'open-uri'
+require 'rexml/document'
+include REXML
+
 class Podcast < ActiveRecord::Base
 	has_and_belongs_to_many :users
-	has_many :content
+	has_many :contents
 
-	def after_intialize
-		root = parse_rss(self.url)
+	private def last_update_date(root)
+		DateTime.parse(root.elements["channel"].elements["lastBuildDate"].text)
+	end
+
+	def parse
+		root = parse_rss(self.rss_link)
 
 		self.title = root.elements["channel"].elements["title"].text
 		self.last_check = last_update_date(root)
 
-		self.contents = Array.new
-		root.each_element("//item") { |item| self.contents << make_content_from_rss(item) }
+		self.update(root)
+
+		self.save
 	end
 
-	def update
-		root = parse_rss(self.url)
-		if self.last_check < last_update_date(root)
-			root.each_element("//item") { |item| self.contents << make_content_from_rss(item) if get_pub_date(item) > self.last_check }
+	def transcribe_all
+		self.contents.each do |content|
+			content.upload
+			content.transcribe
 		end
+	end
+
+	def update(root)
+		root.each_element("//item") { |item| self.contents << make_content_from_rss(item) if get_pub_date(item) > self.last_check }
 		self.last_check = DateTime.current
+	end
+
+	def self.isPodcast?(str)
+		W3C::FeedValidator.new.validate_url(str)
+	end
+
+	def self.check_all
+		root = parse_rss(self.rss_link)
+		update(root)
+	end
+
+	def self.check_all
+		self.where.not(status: self.statuses[:transcribed]).each do |content|
+			content.check_progress
+		end
 	end
 
 	private
@@ -36,7 +65,4 @@ class Podcast < ActiveRecord::Base
 		doc.root
 	end
 
-	def last_udpate_date(root)
-		DateTime.parse(root.elements["channel"].elements["lastBuildDate"].text)
-	end
 end
