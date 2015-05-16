@@ -1,0 +1,20 @@
+<p>
+	Cher <%= @user.name %>,
+</p>
+
+<p>
+	La transcription de votre contenu est disponible.
+</p>
+
+<p>
+	Détails du contenu:
+</p>
+<p>
+	Titre: <%= @content.title %>
+	Description: <%= @content.description %>
+	Date de parution: <%= @content.release_date %>
+</p>
+
+<p>
+	Vous pouvez consulter la transcription à l'adresse suivante: <%= link_to @content %>
+</p>

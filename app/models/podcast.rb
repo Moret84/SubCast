@@ -22,13 +22,6 @@ class Podcast < ActiveRecord::Base
 		self.save
 	end
 
-	def transcribe_all
-		self.contents.each do |content|
-			content.upload
-			content.transcribe
-		end
-	end
-
 	def update(root)
 		root.each_element("//item") { |item| self.contents << make_content_from_rss(item) if get_pub_date(item) > self.last_check }
 		self.last_check = DateTime.current
@@ -39,13 +32,9 @@ class Podcast < ActiveRecord::Base
 	end
 
 	def self.check_all
-		root = parse_rss(self.rss_link)
+		self.all.each do |podcast|
+		root = parse_rss(podcast.rss_link)
 		update(root)
-	end
-
-	def self.check_all
-		self.where.not(status: self.statuses[:transcribed]).each do |content|
-			content.check_progress
 		end
 	end
 

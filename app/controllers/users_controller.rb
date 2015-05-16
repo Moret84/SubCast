@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-	before_action :logged_in_user, only: [:edit, :update, :transcribe]
-	before_action :correct_user,   only: [:edit, :update]
+	before_action :logged_in_user, only: [:edit, :update, :transcribe, :do_transcribe]
+	before_action :correct_user, only: [:edit, :update]
 
 	def list
 		@users = User.find(:all)
@@ -58,14 +58,15 @@ class UsersController < ApplicationController
 			if Content.isContent?(params[:url])
 				content = Content.create(title: params[:title], description: params[:description], url: params[:url])
 				current_user.contents << content
+				content.users << current_user
 				content.delay.upload
 				content.delay.transcribe
 				flash.now[:success].prepend("Contenu ")
 			elsif Podcast.isPodcast?(params[:url])
 				podcast = Podcast.create(rss_link: params[:url])
 				current_user.podcasts << podcast
+				podcast.users << current_user
 				podcast.delay.parse
-				podcast.delay.transcribe_all
 				flash.now[:success].prepend("Podcast ")
 			else
 				flash.now[:danger] = "URL invalide"
@@ -78,14 +79,6 @@ class UsersController < ApplicationController
 	#Need to say which arguments have to be specified
 	def user_params
 		params.require(:user).permit(:name, :email, :password, :password_confirmation)
-	end
-
-	# Confirms a logged-in user.
-	def logged_in_user
-		unless signed_in?
-			flash[:danger] = "Veuillez vous identifier."
-			redirect_to signin_path
-		end
 	end
 
 	# Confirms the correct user.

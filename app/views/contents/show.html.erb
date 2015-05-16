@@ -1,0 +1,14 @@
+<div class="row" >
+	<%# <%= audio_tag @content.url, controls: true, preload: "auto", id: "audio"  %1> %>
+	<audio preload="auto" controls webkit-playsinline id="audio">
+		<source src=<%= @content.url %> />
+			<track id="track" label="English subtitles" kind="subtitles" srclang="en" src=<%= @transcription %> default />
+			<p>This browser does not support the audio element.</p>
+		</audio>
+
+		<p id="data" style="text-align:center; height: 150px;"></p>
+
+		<input id="search" type="text" placeholder="Rechercher..."/>
+		<ul id="resultList">
+		</ul>
+</div>

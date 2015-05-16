@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :contents, :only => [:show]
 
   get '/signup',  :to => 'users#new'
   get '/signin',  :to => 'sessions#new'
