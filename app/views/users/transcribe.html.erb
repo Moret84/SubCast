@@ -9,20 +9,20 @@
 		</ul>
 		<div class="tab-content text-left">
 			<div id="content-form" class="tab-pane active">
-				<%= form_tag transcribe_path do %>
+				<%= form_for @content do |f| %>
 					<div class="field form-group">
-						<%= text_field_tag 'title', nil, class: 'form-control', placeholder: "Titre" %>
+						<%= f.text_field :title, class: 'form-control', placeholder: "Titre" %>
 					</div>
 					<div class="field form-group">
-						<%= text_field_tag 'description', nil, class: 'form-control', placeholder: "Description" %>
+						<%= f.text_field :description, class: 'form-control', placeholder: "Description" %>
 					</div>
 					<div class="field form-group text-center">
-						<%= text_field_tag 'url', nil, class: 'form-control', placeholder: "Entrez l'URL de votre contenu" %>
+						<%= f.text_field :url, class: 'form-control', placeholder: "Entrez l'URL de votre contenu" %>
 					</div>
 
-					<div class="field form-groupa collapse" id="file_upload_div">
-						<%= label_tag 'file_upload', 'Choisir contenu' %>
-						<%= file_field_tag 'file_upload' %>
+					<div class="field form-group collapse" id="file_upload_div">
+						<%= f.label :file_upload, 'Choisir contenu' %>
+						<%= f.file_field :file_upload %>
 					</div>
 
 					<div class="text-center" id="toggle_url">
@@ -30,23 +30,23 @@
 					</div>
 
 					<div class="field form-group">
-						<%= label_tag 'context_file', 'Fichier de contexte (facultatif)' %>
-						<%= file_field_tag 'context_file' %>
+						<%= f.label :context_file, 'Fichier de contexte (facultatif)' %>
+						<%= f.file_field :context_file %>
 					</div>
 
 					<div class="actions form-group text-center">
-						<%= submit_tag "Transcrire !", class: "btn btn-default" %>
+						<%= f.submit "Transcrire !", class: "btn btn-default" %>
 					</div>
 				<% end %>
 			</div>
 			<div id="podcast-form" class="tab-pane">
-				<%= form_tag transcribe_path do %>
+				<%= form_for @podcast do |f| %>
 					<div class="field form-group">
-						<%= text_field_tag 'url', nil, class: 'form-control', placeholder: "Entrez l'URL de votre podcast" %>
+						<%= f.text_field :rss_link, class: 'form-control', placeholder: "Entrez l'URL de votre podcast" %>
 					</div>
 
 					<div class="actions form-group text-center">
-						<%= submit_tag "Transcrire !", class: "btn btn-default" %>
+						<%= f.submit "Transcrire !", class: "btn btn-default" %>
 					</div>
 				<% end %>
 			</div>

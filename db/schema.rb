@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150508203355) do
+ActiveRecord::Schema.define(version: 20150521001728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,8 +58,9 @@ ActiveRecord::Schema.define(version: 20150508203355) do
     t.string   "title"
     t.string   "rss_link"
     t.datetime "last_check"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "description"
   end
 
   create_table "podcasts_users", id: false, force: :cascade do |t|
@@ -69,6 +70,26 @@ ActiveRecord::Schema.define(version: 20150508203355) do
 
   add_index "podcasts_users", ["podcast_id"], name: "index_podcasts_users_on_podcast_id", using: :btree
   add_index "podcasts_users", ["user_id"], name: "index_podcasts_users_on_user_id", using: :btree
+
+  create_table "themes", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "last_check"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "themes_users", id: false, force: :cascade do |t|
+    t.integer "theme_id"
+    t.integer "user_id"
+  end
+
+  create_table "themes_userss", id: false, force: :cascade do |t|
+    t.integer "theme_id"
+    t.integer "user_id"
+  end
+
+  add_index "themes_userss", ["theme_id"], name: "index_themes_userss_on_theme_id", using: :btree
+  add_index "themes_userss", ["user_id"], name: "index_themes_userss_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string "name",            limit: 20, null: false

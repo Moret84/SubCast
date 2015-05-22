@@ -1,14 +1,26 @@
+<%= csrf_meta_tag %>
+<script type="text/javascript">
+	content_id = <%= @content.id %>;
+</script>
 <div class="row" >
-	<%# <%= audio_tag @content.url, controls: true, preload: "auto", id: "audio"  %1> %>
 	<audio preload="auto" controls webkit-playsinline id="audio">
-		<source src=<%= @content.url %> />
-			<track id="track" label="English subtitles" kind="subtitles" srclang="en" src=<%= @transcription %> default />
-			<p>This browser does not support the audio element.</p>
-		</audio>
+		<source src=<%= content_src_url @content %> />
+		<track id="track" label="English subtitles" kind="subtitles" srclang="en" src=<%= @transcription %> default />
+		<p>This browser does not support the audio element.</p>
+	</audio>
 
-		<p id="data" style="text-align:center; height: 150px;"></p>
+	<div id="data" style="text-align:center; height: 300px;"><p id="cue"></p></div>
 
-		<input id="search" type="text" placeholder="Rechercher..."/>
-		<ul id="resultList">
-		</ul>
+	<input id="search" class="form-control" type="text" placeholder="Rechercher..."/>
+	<ul id="resultList" class="list-group">
+	</ul>
 </div>
+<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
+	Afficher la transcription complète
+</button>
+<div class="collapse" id="collapse">
+	<div class="well" id="transcription">
+	</div>
+</div>
+<%= javascript_include_tag "lunr.min.js" %>
+<%= javascript_include_tag "player.js" %>

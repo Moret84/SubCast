@@ -21,8 +21,12 @@ every 5.minutes do
 	runner "Content.check_all"
 end
 
-every 1.hours do
+every 15.minutes do
 	runner "Podcast.check_all"
+end
+
+every 30.minutes do
+	runner "Theme.check_all"
 end
 
 # Learn more: http://github.com/javan/whenever

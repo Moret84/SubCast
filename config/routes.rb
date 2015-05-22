@@ -2,15 +2,30 @@ Rails.application.routes.draw do
   root 'pages#index'
   get 'pages/index'
 
-  resources :users
+  resources :users do
+	  collection do
+		  post 'unsubscribe'
+	  end
+  end
+
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :contents, :only => [:show]
+  resources :podcasts, :only => [:create]
+  resources :themes, :only => [:new, :create]
+  resources :contents, :only => [:show, :create] do
+	  collection do
+		  get 'search'
+	  end
+	  member do
+		  post 'correct'
+	  end
+  end
+  resources :podcasts, :only => [:create]
 
   get '/signup',  :to => 'users#new'
   get '/signin',  :to => 'sessions#new'
   get '/signout', :to => 'sessions#destroy'
   get '/transcribe', :to => 'users#transcribe'
-  post '/transcribe', :to => 'users#do_transcribe'
+  get '/subscribe', :to => 'themes#new'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

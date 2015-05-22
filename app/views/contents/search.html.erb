@@ -1,0 +1,36 @@
+<div class="row">
+	<p class="center-block">
+		Vous pouvez effectuer une recherche dans les transcriptions ou les titres des contenus.<br/>
+		Vous obtiendrez les contenus où votre requête figure.
+	</p>
+</div>
+<div class="row">
+	<div class="col-md-2 col-lg-4 center-block">
+		<%= form_tag("/contents/search", method: "get", class: "form-inline") do %>
+			<div class="field form-group">
+				<%= text_field_tag :search, params[:search], class: "form-control" %>
+			</div>
+			<div class="actions form-group">
+				<%= submit_tag "Rechercher", :title => nil, class: "btn btn-primary" %>
+			</div>
+		<% end %>
+	</div>
+</div>
+
+<div class="row">
+	<% if @contents.nil? %>
+	<% elsif @contents.any? %>
+		<div>
+			<h3>Résultats</h3>
+			<ul class="list-group">
+				<% for content in @contents %>
+					<li class="list-group-item">
+						<strong><%= link_to content.title, content %></strong>
+					</li>
+				<% end %>
+			</ul>
+		</div>
+	<% else %>
+		<h3>Aucun résultat</h3>
+	<% end %>
+</div>

@@ -23,5 +23,9 @@ module SubCast
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 	config.active_job.queue_adapter = :delayed_job
+	config.i18n.enforce_available_locales = false
+	config.i18n.available_locales = [:en, :fr]
+	config.i18n.default_locale = :fr
+	#I18n.default_locale = :fr
   end
 end

@@ -1,14 +1,14 @@
-<div id="signup" class="col-md-2 center-block">
+<div id="signup" class="col-md-3 center-block">
 	<%= form_for(:session, :url => sessions_path) do |f| %>
 		<div class="field form-group">
-			<%= f.text_field :email_or_username, class: 'form-control', placeholder: 'Username or Email' %>
+			<%= f.text_field :email_or_username, class: 'form-control', placeholder: "Nom d'utilisateur ou email" %>
 		</div>
 		<div class="field form-group">
-			<%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
+			<%= f.password_field :password, class: 'form-control', placeholder: 'Mot de passe' %>
 		</div>
 		<div class="actions form-group">
-			<%= f.submit "Sign in", class: "btn btn-default" %>
+			<%= f.submit "Connexion", class: "btn btn-default" %>
 		</div>
 	<% end %>
 </div>
-<p class="center-block">Pas encore inscrit ? <%= link_to "Sign up", signup_path %></p>
+<p class="center-block">Pas encore inscrit ? <%= link_to "Inscription", signup_path %></p>

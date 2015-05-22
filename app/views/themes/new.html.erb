@@ -1,0 +1,15 @@
+<div class="row">
+	<p>
+		Sur cette page, vous pouvez vous abonner à un thème qui vous intéresse. Si un contenu est transcrit et contient le mot, expression ou nom auquel vous vous êtes abonné, vous serez prévenu via mail. Pour commencer, c'est très simple il vous suffit d'entrer un thème à suivre.
+	</p>
+</div>
+<div class="col-md-2 col-lg-4 center-block">
+	<%= form_for @theme do |f| %>
+		<div class="field form-group">
+			<%= f.text_field :name, placeholder: "Intitulé", class: "form-control" %>
+		</div>
+		<div class="actions form-group">
+			<%= f.submit "Suivre !", class: "btn btn-default" %>
+		</div>
+	<% end %>
+</div>

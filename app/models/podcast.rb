@@ -7,51 +7,44 @@ class Podcast < ActiveRecord::Base
 	has_and_belongs_to_many :users
 	has_many :contents
 
-	private def last_update_date(root)
-		DateTime.parse(root.elements["channel"].elements["lastBuildDate"].text)
-	end
-
-	def parse
-		root = parse_rss(self.rss_link)
-
-		self.title = root.elements["channel"].elements["title"].text
-		self.last_check = last_update_date(root)
-
-		self.update(root)
+	def check_news
+		feed = Feedjira::Feed.fetch_and_parse(self.rss_link)
+		feed.entries.each { |item| self.contents << make_content_from_rss(item) if item.published > self.last_check} if feed.last_modified > self.last_check
+		self.last_check = DateTime.current
 
 		self.save
 	end
 
-	def update(root)
-		root.each_element("//item") { |item| self.contents << make_content_from_rss(item) if get_pub_date(item) > self.last_check }
+	#First parsing
+	def parse
+		feed = Feedjira::Feed.fetch_and_parse self.rss_link
+
+		self.title = feed.title
+		self.description = feed.description
 		self.last_check = DateTime.current
+
+		self.check_news
+
+		self.save
 	end
+
 
 	def self.isPodcast?(str)
 		W3C::FeedValidator.new.validate_url(str)
 	end
 
+
 	def self.check_all
 		self.all.each do |podcast|
-		root = parse_rss(podcast.rss_link)
-		update(root)
+			podcast.check_news
 		end
 	end
 
 	private
 
-	def get_pub_date(item)
-		DateTime.parse(item.elements["pubDate"].text)
-	end
 
 	def make_content_from_rss(item)
-		Content.new(title: item.elements["title"].text, description: item.elements["description"].text, url: item.elements["enclosure"].attributes["url"], release_date: get_pub_date(item))
-	end
-
-	def parse_rss(url)
-		file = open(url)
-		doc = Document.new(file)
-		doc.root
+		content = Content.create(title: item.title, description: self.description, url: item.enclosure_url, release_date: item.published, status: "nothing")
 	end
 
 end

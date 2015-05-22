@@ -1,0 +1,27 @@
+
+<div class="col-md-3 center-block">
+	<%= form_for(@user) do |f| %>
+
+		<%= render 'error_messages' %>
+
+		<div class="field form-group">
+			<%= f.text_field :name, class: 'form-control', placeholder: 'Nom d\'utilisateur' %>
+		</div>
+
+		<div class="field form-group">
+			<%= f.text_field :email, class: 'form-control', placeholder: 'Adresse email' %>
+		</div>
+
+		<div class="field form-group">
+			<%= f.password_field :password, class: 'form-control', placeholder: 'Mot de passe' %>
+		</div>
+
+		<div class="field form-group">
+			<%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'Confirmez le mot de passe' %>
+		</div>
+
+		<div class="actions form-group">
+			<%= f.submit "Enregistrer", class: "btn btn-default" %>
+		</div>
+	<% end %>
+</div>

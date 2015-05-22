@@ -1,0 +1,21 @@
+<p>
+	Cher <%= @user.name %>,
+</p>
+
+<p>
+	Nous vous signalons la transcription de nouveaux contenus concernant la thématique "<%= @theme.name %>" à laquelle vous êtes abonné.
+</p>
+
+<p>
+	Les contenus suivant sont disponibles:
+</p>
+<% @news.each do |content| %>
+<p>
+	Titre: <%= content.title.blank? ? "Non précisé" : content.title %> <br/>
+	Description: <%= content.description.blank? ? "Non précisé" : content.description %> <br/>
+	Disponible <%= link_to 'ici', content %> .
+<p>
+<% end %>
+<p>
+	Merci d'utiliser SubCast :)
+</p>

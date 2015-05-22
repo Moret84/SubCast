@@ -1,0 +1,13 @@
+Cher <%= @user.name %>,
+
+La transcription du dernier contenu du podcast <%= @content.podcast.title.blank? ? "Non précisé" : @content.podcast.title %>, auquel vous êtes abonné, est disponible.
+
+Détails
+
+Titre: <%= @content.title.blank? ? "Non précisé" : @content.title %> <br/>
+Description: <%= @content.description.blank? ? "Non précisé" : @content.description %> <br/>
+Date de parution: <%= @content.release_date %>
+
+Vous pouvez consulter la transcription <%= link_to 'ici', @content %>.
+
+Merci d'utiliser SubCast :)

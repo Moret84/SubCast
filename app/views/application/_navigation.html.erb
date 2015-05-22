@@ -4,11 +4,14 @@
 		<div class="collapse navbar-collapse" id="navbar-collapsable">
 			<ul class="nav navbar-nav ">
 				<li>
-					<a href="dummy">Rechercher Transcription</a>
+					<%= link_to "Rechercher", search_contents_path %>
 				</li>
 				<% if signed_in? %>
 					<li>
 						<%= link_to "Transcrire", transcribe_path %>
+					</li>
+					<li>
+						<%= link_to "Abonnement", subscribe_path %>
 					</li>
 				<% end %>
 			</ul>

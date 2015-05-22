@@ -29,9 +29,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-#To have "friendly URL"
-gem 'friendly_id', '~> 5.1.0'
-
 #Allow to queue background jobs
 gem 'delayed_job_active_record'
 
@@ -41,8 +38,24 @@ gem "feedvalidator"
 #Periodic checks
 gem 'whenever', :require => false
 
+#To have background delayed job
 gem 'daemons'
 
+#sunspot (text file indexation)
+gem 'sunspot_rails'
+gem 'sunspot_solr'
+
+#To parse RSS/Atom feeds
+gem 'feedjira'
+
+#easy management of webVTT files
+gem 'webvtt'
+
+#easy management of HTML markup
+gem 'nokogiri'
+
+#TO translate
+gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'master' # For 4.x
 
 # Use Unicorn as the app server
 # gem 'unicorn'

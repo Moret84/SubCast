@@ -1,20 +1,21 @@
 <p>
 	Cher <%= @user.name %>,
 </p>
-
 <p>
 	La transcription de votre contenu est disponible.
+<p>
+
+<p>
+	Détails
+</p>
+<p>
+	Titre: <%= @content.title.blank? ? "Non précisé" : @content.title %> <br/>
+	Description: <%= @content.description.blank? ? "Non précisé" : @content.description %> <br/>
 </p>
 
 <p>
-	Détails du contenu:
+	Vous pouvez consulter la transcription <%= link_to 'ici', @content %>.
 </p>
 <p>
-	Titre: <%= @content.title %>
-	Description: <%= @content.description %>
-	Date de parution: <%= @content.release_date %>
-</p>
-
-<p>
-	Vous pouvez consulter la transcription à l'adresse suivante: <%= link_to @content %>
+	Merci d'utiliser SubCast :)
 </p>
