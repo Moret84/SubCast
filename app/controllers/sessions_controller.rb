@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
 		if user.nil?
 			@title = "Connexion"
 			# Crée un message d'erreur et rend le formulaire d'identification.
-			flash.now[:danger] = "Bad User/Password"
+			flash.now[:danger] = "Mauvais couple identifiant/mot de passe."
 			render 'new'
 		else
 			sign_in user

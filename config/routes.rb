@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 	  end
   end
 
+  resources :users, :except => [:index]
   resources :sessions, :only => [:new, :create, :destroy]
   resources :podcasts, :only => [:create]
   resources :themes, :only => [:new, :create]

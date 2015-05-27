@@ -38,7 +38,7 @@
 						<div class="panel-heading">
 							<h3 class="panel-title">
 								<%= content_element :title, content.title %>
-						</h3>
+							</h3>
 						</div>
 						<div class="panel-body">
 							<%= content_element :description, content.description %>
@@ -50,7 +50,7 @@
 				<% end %>
 			<% else %>
 				<p>
-					Vous n'avez demandé la transcription d'aucun contenu.<br/>
+					Vous n'avez demandé la transcription d'aucun contenu.
 					<%= link_to "Transcire", transcribe_path, class: 'btn btn-primary' %>
 				</p>
 			<% end %>
@@ -62,7 +62,7 @@
 					<div class="panel panel-default" id="podcast<%= podcast.id %>">
 						<div class="panel-heading">
 							<h3 class="panel-title" style="display:inline;">
-							<%= podcast.title %>
+								<%= podcast.title %>
 							</h3>
 							<a class="badge pull-right" onclick="unsubscribe('podcast',<%= podcast.id %>,<%= @user.id %>);">Se désabonner</a>
 						</div>
@@ -70,35 +70,40 @@
 							<%= content_element :description, podcast.description %>
 							<%= content_tag :a, 'Contenus', href: '#contents' + content_count.to_s, :data => { toggle: "collapse" }, class: "btn btn-primary" %>
 							<%= tag :div, class: "collapse", id: "contents" + content_count.to_s, style: "padding-top:10px;" %>
-						<% if podcast.contents.length > 0 %>
-							<% podcast.contents.all.each do |subcontent| %>
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<h4 class="panel-title"><%= subcontent.title %></h4>
+							<% if podcast.contents.length > 0 %>
+								<% podcast.contents.all.each do |subcontent| %>
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title"><%= subcontent.title %></h4>
+										</div>
+										<div class="panel-body">
+											<%= content_element :description, subcontent.description %>
+											<p class="center-block">Progression</p>
+											<%= progress_bar subcontent.check_progress.to_s %>
+											<%= link_to "Voir", subcontent, class: "btn btn-primary" %>
+										</div>
 									</div>
-									<div class="panel-body">
-										<%= content_element :description, subcontent.description %>
-										<p class="center-block">Progression</p>
-										<%= progress_bar subcontent.check_progress.to_s %>
-										<%= link_to "Voir", subcontent, class: "btn btn-primary" %>
-									</div>
-								</div>
-							<% end %>
-						<%else %>
-							<p>
-								Aucun contenu pour ce podcast.
-							</p>
-						<%end %>
-						<% content_count += 1 %>
+								<% end %>
+							<%else %>
+								<p>
+									Aucun contenu pour ce podcast.
+								</p>
+							<%end %>
+							<% content_count += 1 %>
 						</div>
 					</div>
 				</div>
 			<% end %>
+		<% else %>
+				<p>
+					Vous ne vous êtes abonné à aucun podcast.
+				</p>
+					<%= link_to "S'abonner", transcribe_path, class: 'btn btn-primary' %>
 		<% end %>
-		</div>
-		<div id="abonnements" class="tab-pane">
-			<% if @user.themes.length > 0 %>
-				<% @user.themes.all.each do |theme| %>
+	</div>
+	<div id="abonnements" class="tab-pane">
+		<% if @user.themes.length > 0 %>
+			<% @user.themes.all.each do |theme| %>
 				<div class="panel panel-default" id="theme<%= theme.id %>">
 					<div class="panel-heading">
 						<h3 class="panel-title" style="display:inline;"><%= theme.name %> </h3>
@@ -107,35 +112,35 @@
 					<div class="panel-body">
 						<%= content_tag :a, 'Contenus', href: '#themeContent'+theme.id.to_s, :data => { toggle: "collapse" }, class: "btn btn-primary" %>
 						<div class="collapse" id="themeContent<%= theme.id %>" style="padding-top:10px;">
-						<% search = Content.search do fulltext theme.name end %>
-						<% if search.results.length > 0 %>
-						<% search.results.each do |subcontent| %>
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<h4 class="panel-title"><%= subcontent.title %></h4>
+							<% search = Content.search do fulltext theme.name end %>
+							<% if search.results.length > 0 %>
+								<% search.results.each do |subcontent| %>
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h4 class="panel-title"><%= subcontent.title %></h4>
+										</div>
+										<div class="panel-body">
+											<%= content_element :description, subcontent.description %>
+											<p class="center-block">Progression</p>
+											<%= progress_bar subcontent.check_progress.to_s %>
+											<%= link_to "Voir", subcontent, class: "btn btn-primary" %>
+										</div>
 									</div>
-									<div class="panel-body">
-										<%= content_element :description, subcontent.description %>
-										<p class="center-block">Progression</p>
-										<%= progress_bar subcontent.check_progress.to_s %>
-										<%= link_to "Voir", subcontent, class: "btn btn-primary" %>
-									</div>
-								</div>
-						<% end %>
-						</div>
+								<% end %>
+							</div>
 						<% else %>
 							<p>Aucune correspondance</p>
 						<% end %>
 					</div>
-					</div>
 				</div>
-				<% end %>
-			<% else %>
-				<p>
-					Vous n'êtes abonné à aucun sujet.
-				</p>
-				<%= link_to "S'abonner", subscribe_path, class: "btn btn-primary" %>
-			<% end %>
-		</div>
+			</div>
+		<% end %>
+	<% else %>
+		<p>
+			Vous n'êtes abonné à aucun sujet.
+		</p>
+		<%= link_to "S'abonner", subscribe_path, class: "btn btn-primary" %>
+	<% end %>
+</div>
 	</div>
 </div>

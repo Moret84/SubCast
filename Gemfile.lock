@@ -203,6 +203,7 @@ DEPENDENCIES
   jquery-rails
   nokogiri
   pg
+  rack
   rails (= 4.2.0)
   rails-i18n!
   sass-rails (~> 5.0)

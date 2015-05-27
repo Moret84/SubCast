@@ -9,7 +9,7 @@ class Podcast < ActiveRecord::Base
 
 	def check_news
 		feed = Feedjira::Feed.fetch_and_parse(self.rss_link)
-		feed.entries.each { |item| self.contents << make_content_from_rss(item) if item.published > self.last_check} if feed.last_modified > self.last_check
+		feed.entries.each { |item| self.contents << make_content_from_rss(item) if item.published > self.last_check }
 		self.last_check = DateTime.current
 
 		self.save
@@ -30,7 +30,9 @@ class Podcast < ActiveRecord::Base
 
 
 	def self.isPodcast?(str)
-		W3C::FeedValidator.new.validate_url(str)
+		feed = W3C::FeedValidator.new
+		feed.validate_url(str)
+		feed.valid?
 	end
 
 

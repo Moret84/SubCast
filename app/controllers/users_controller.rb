@@ -75,7 +75,7 @@ class UsersController < ApplicationController
 			current_user.save
 		end
 		theme = Theme.find(theme_id)
-		if theme.nil?
+		if theme.users.empty?
 			theme.destroy
 		end
 	end
@@ -87,7 +87,7 @@ class UsersController < ApplicationController
 			current_user.save
 		end
 		podcast = Podcast.find(podcast_id)
-		if podcast.nil?
+		if podcast.users.empty?
 			podcast.destroy
 		end
 	end
@@ -106,7 +106,7 @@ class UsersController < ApplicationController
 	def logged_in_user
 		unless signed_in?
 			store_location
-			flash[:danger] = "Please log in."
+			flash[:danger] = "Connectez-vous, s'il vous plaît."
 			redirect_to login_url
 		end
 	end

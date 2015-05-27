@@ -57,6 +57,8 @@ gem 'nokogiri'
 #TO translate
 gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'master' # For 4.x
 
+gem 'rack'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
