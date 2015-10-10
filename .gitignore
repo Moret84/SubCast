@@ -17,3 +17,5 @@
 /tmp
 *.swp
 transcriptions/
+config/mail_credentials.rb
+config/rest_api.yml
