@@ -1,4 +1,4 @@
-# jte
+# SubCast
 
 SubCast est un projet universitaire dont l'objectif était de créer une plate-forme grand public fournissant la transcription de contenu audio.
 Outre les contenus téléversés par l'utilisateur, il est également possible de s'abonner à des podcasts d'émissions pour en recevoir les transcriptions dans la foulée de leur mise en disponibilité.  
